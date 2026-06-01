@@ -1,0 +1,10 @@
+# Keep generated raw rosbags and oversized binary dumps out of git.
+*.db3
+*.mcap
+*.bag
+*.bag2
+*.tar
+*.tar.gz
+*.zip
+
+# Keep only intentional summaries/plots/CSVs in this results directory.

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Generate a top-down overlay of the sampled input LiDAR cloud and persistent
+# S-Graphs wall-plane hypotheses. This is the recommended visual sanity check
+# before making paper claims about wall recovery.
+
+RUN_ID="${RUN_ID:-spot_dinamicaStaticV0_sgraphs_step7a_old_002}"
+STEP7A_ROOT="${STEP7A_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-${STEP7A_ROOT}/runs}"
+RESULTS_DIR="${RESULTS_DIR:-${OUTPUT_ROOT}/${RUN_ID}}"
+INPUT_CSV="${INPUT_CSV:-${RESULTS_DIR}/sgraphs_wall_planes.csv}"
+OUTPUT_PNG="${OUTPUT_PNG:-${RESULTS_DIR}/plots/sgraphs_lidar_wall_overlay_odom.png}"
+LIDAR_TOPIC="${LIDAR_TOPIC:-/velodyne/points}"
+MAX_MESSAGES="${MAX_MESSAGES:-60}"
+POINT_STRIDE="${POINT_STRIDE:-12}"
+MIN_Z="${MIN_Z:--2.0}"
+MAX_Z="${MAX_Z:-3.0}"
+MAX_POINTS="${MAX_POINTS:-350000}"
+MIN_OBSERVATIONS="${MIN_OBSERVATIONS:-20}"
+SEGMENT_FRAME="${SEGMENT_FRAME:-auto}"
+MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/mplconfig}"
+
+mkdir -p "${MPLCONFIGDIR}"
+export MPLCONFIGDIR
+
+if [[ -z "${BAG_PATH:-}" ]]; then
+  echo "ERROR: BAG_PATH is required. Example:" >&2
+  echo "  export BAG_PATH=/absolute/path/to/rosbag_directory" >&2
+  exit 2
+fi
+
+exec python3 "$(dirname "$0")/plot_sgraphs_lidar_overlay.py" \
+  --bag "${BAG_PATH}" \
+  --topic "${LIDAR_TOPIC}" \
+  --csv "${INPUT_CSV}" \
+  --output "${OUTPUT_PNG}" \
+  --max-messages "${MAX_MESSAGES}" \
+  --point-stride "${POINT_STRIDE}" \
+  --min-z "${MIN_Z}" \
+  --max-z "${MAX_Z}" \
+  --max-points "${MAX_POINTS}" \
+  --min-observations "${MIN_OBSERVATIONS}" \
+  --segment-frame "${SEGMENT_FRAME}"

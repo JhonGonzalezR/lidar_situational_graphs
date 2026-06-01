@@ -1,0 +1,15 @@
+# Keep raw recordings and large bundles out of git.
+*.db3
+*.mcap
+*.bag
+*.bag2
+*.tar
+*.tar.gz
+*.zip
+
+# Keep accidental cache files out.
+__pycache__/
+*.pyc
+
+# Keep superseded/misnamed diagnostic figures out of git.
+archive_misnamed/
