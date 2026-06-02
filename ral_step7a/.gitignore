@@ -1,0 +1,6 @@
+# Raw/imported local result folders should be copied into runs/ before sharing.
+20260601_195923/
+
+# Local caches.
+__pycache__/
+*.pyc
