@@ -217,21 +217,26 @@ def plot_scene(
     pipes: list[dict[str, float | str | int | bool]],
     output: Path,
     title: str,
+    xlim: tuple[float, float] | None,
+    ylim: tuple[float, float] | None,
+    paper: bool,
+    show_ids: bool,
 ) -> None:
-    fig, ax = plt.subplots(figsize=(9.0, 8.0))
+    fig, ax = plt.subplots(figsize=(9.4, 7.2))
     if points is not None:
         scatter = ax.scatter(
             points[:, 0],
             points[:, 1],
             c=points[:, 2],
-            s=0.18,
+            s=0.22,
             cmap="viridis",
-            alpha=0.32,
+            alpha=0.38,
             linewidths=0,
             rasterized=True,
         )
-        colorbar = fig.colorbar(scatter, ax=ax, fraction=0.035, pad=0.02)
-        colorbar.set_label("z [m]")
+        if not paper:
+            colorbar = fig.colorbar(scatter, ax=ax, fraction=0.035, pad=0.02)
+            colorbar.set_label("z [m]")
 
     max_age = max((int(segment["age"]) for segment in wall_segments), default=1)
     for segment in wall_segments:
@@ -240,28 +245,36 @@ def plot_scene(
         dx = float(segment["dx"])
         dy = float(segment["dy"])
         half = 0.5 * float(segment["length"])
-        linewidth = 1.4 + 3.4 * min(int(segment["age"]) / max(max_age, 1), 1.0)
+        linewidth = 2.2 + 4.0 * min(int(segment["age"]) / max(max_age, 1), 1.0)
         alpha = 0.95 if bool(segment["strong"]) else 0.55
         ax.plot([cx - half * dx, cx + half * dx], [cy - half * dy, cy + half * dy], linewidth=linewidth, alpha=alpha)
-        ax.scatter([cx], [cy], s=20, color="black", alpha=0.75)
-        label = f"W:{segment['track_id']}"
-        if bool(segment["strong"]):
-            label += "*"
-        ax.text(cx, cy, label, fontsize=7, ha="left", va="bottom")
+        if show_ids:
+            ax.scatter([cx], [cy], s=18, color="black", alpha=0.75)
+            label = f"W:{segment['track_id']}"
+            if bool(segment["strong"]):
+                label += "*"
+            ax.text(cx, cy, label, fontsize=7, ha="left", va="bottom")
 
     if pillars:
-        ax.scatter([float(a["cx"]) for a in pillars], [float(a["cy"]) for a in pillars], marker="s", s=42, color="#d62728", alpha=0.85, label="PillarLike")
+        ax.scatter([float(a["cx"]) for a in pillars], [float(a["cy"]) for a in pillars], marker="s", s=72, color="#d62728", alpha=0.9, label="PillarLike")
     if pipes:
         ax.scatter([float(a["cx"]) for a in pipes], [float(a["cy"]) for a in pipes], marker="x", s=54, color="#111111", alpha=0.85, label="PipeLike")
-    if pillars or pipes:
+    if (pillars or pipes) and not paper:
         ax.legend(loc="best")
 
-    ax.set_title(title)
-    ax.set_xlabel("x_odom [m]")
-    ax.set_ylabel("y_odom [m]")
-    ax.axis("equal")
-    ax.grid(True, alpha=0.25)
-    fig.tight_layout()
+    ax.set_title(title, fontsize=15)
+    if xlim:
+        ax.set_xlim(*xlim)
+    if ylim:
+        ax.set_ylim(*ylim)
+    ax.set_aspect("equal", adjustable="box")
+    if paper:
+        ax.axis("off")
+    else:
+        ax.set_xlabel("x_odom [m]")
+        ax.set_ylabel("y_odom [m]")
+        ax.grid(True, alpha=0.25)
+    fig.tight_layout(pad=0.15)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output, dpi=180)
     plt.close(fig)
@@ -331,7 +344,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-z", default=-2.0, type=float)
     parser.add_argument("--max-z", default=3.0, type=float)
     parser.add_argument("--max-points", default=450000, type=int)
-    parser.add_argument("--title", default="InGraph structural anchors in odom frame")
+    parser.add_argument("--title", default="")
+    parser.add_argument("--xlim", nargs=2, type=float, metavar=("XMIN", "XMAX"))
+    parser.add_argument("--ylim", nargs=2, type=float, metavar=("YMIN", "YMAX"))
+    parser.add_argument("--paper", action="store_true", help="Hide axes, grid, and colorbar for article figures.")
+    parser.add_argument("--show-ids", action="store_true", help="Show track IDs next to anchors.")
     return parser.parse_args()
 
 
@@ -351,7 +368,31 @@ def main() -> None:
     points = None
     if args.bag:
         points = sample_lidar_points(args.bag, args.topic, args.max_messages, max(args.point_stride, 1), args.min_z, args.max_z, args.max_points)
-    plot_scene(points, walls, pillars, pipes, args.output, args.title)
+    title = args.title
+    if not title:
+        class_label = " + ".join(
+            label
+            for cls, label in (
+                ("wall_like", "WallLike"),
+                ("pillar_like", "PillarLike"),
+                ("pipe_like", "PipeLike"),
+            )
+            if cls in classes
+        )
+        mode_label = "ever-strong" if args.snapshot == "latest_strong" else args.mode
+        title = f"InGraph {mode_label} {class_label}"
+    plot_scene(
+        points,
+        walls,
+        pillars,
+        pipes,
+        args.output,
+        title,
+        tuple(args.xlim) if args.xlim else None,
+        tuple(args.ylim) if args.ylim else None,
+        args.paper,
+        args.show_ids,
+    )
     if args.summary:
         write_summary(groups, tracks, walls, pillars, pipes, args.summary, args.mode, args.min_age, args.snapshot, classes)
     print(f"WallLike plotted: {len(walls)}")

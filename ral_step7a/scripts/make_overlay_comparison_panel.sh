@@ -16,6 +16,6 @@ exec python3 "$(dirname "$0")/make_overlay_comparison_panel.py" \
   --left "${LEFT_PNG}" \
   --right "${RIGHT_PNG}" \
   --output "${OUTPUT_PNG}" \
-  --left-title "S-Graphs optimized baseline" \
-  --right-title "InGraph confirmed WallLike" \
+  --left-title "" \
+  --right-title "" \
   --title "Step 7A frontend overlay comparison on spot/dinamicaStaticV0"

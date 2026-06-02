@@ -19,6 +19,11 @@ MAX_Z="${MAX_Z:-3.0}"
 MAX_POINTS="${MAX_POINTS:-350000}"
 MIN_OBSERVATIONS="${MIN_OBSERVATIONS:-20}"
 SEGMENT_FRAME="${SEGMENT_FRAME:-auto}"
+TITLE="${TITLE:-S-Graphs persistent wall planes}"
+PAPER="${PAPER:-true}"
+SHOW_IDS="${SHOW_IDS:-true}"
+PAPER_XLIM="${PAPER_XLIM:--35 10}"
+PAPER_YLIM="${PAPER_YLIM:--20 20}"
 MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/mplconfig}"
 
 mkdir -p "${MPLCONFIGDIR}"
@@ -30,7 +35,7 @@ if [[ -z "${BAG_PATH:-}" ]]; then
   exit 2
 fi
 
-exec python3 "$(dirname "$0")/plot_sgraphs_lidar_overlay.py" \
+ARGS=(
   --bag "${BAG_PATH}" \
   --topic "${LIDAR_TOPIC}" \
   --csv "${INPUT_CSV}" \
@@ -41,4 +46,16 @@ exec python3 "$(dirname "$0")/plot_sgraphs_lidar_overlay.py" \
   --max-z "${MAX_Z}" \
   --max-points "${MAX_POINTS}" \
   --min-observations "${MIN_OBSERVATIONS}" \
-  --segment-frame "${SEGMENT_FRAME}"
+  --segment-frame "${SEGMENT_FRAME}" \
+  --title "${TITLE}"
+)
+
+if [[ "${PAPER}" == "true" || "${PAPER}" == "1" ]]; then
+  ARGS+=(--paper --xlim ${PAPER_XLIM} --ylim ${PAPER_YLIM})
+fi
+
+if [[ "${SHOW_IDS}" == "true" || "${SHOW_IDS}" == "1" ]]; then
+  ARGS+=(--show-ids)
+fi
+
+exec python3 "$(dirname "$0")/plot_sgraphs_lidar_overlay.py" "${ARGS[@]}"

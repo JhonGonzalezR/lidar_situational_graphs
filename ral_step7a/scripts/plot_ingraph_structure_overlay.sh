@@ -18,6 +18,10 @@ CLASSES="${CLASSES:-wall_like,pillar_like,pipe_like}"
 MIN_AGE="${MIN_AGE:-1}"
 HIDE_NON_WALL="${HIDE_NON_WALL:-false}"
 LIDAR_TOPIC="${LIDAR_TOPIC:-/velodyne/points}"
+PAPER="${PAPER:-true}"
+SHOW_IDS="${SHOW_IDS:-true}"
+PAPER_XLIM="${PAPER_XLIM:--35 10}"
+PAPER_YLIM="${PAPER_YLIM:--20 20}"
 MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/mplconfig}"
 
 if [[ -z "${BAG_PATH:-}" ]]; then
@@ -40,6 +44,18 @@ ARGS=(
   --classes "${CLASSES}"
   --min-age "${MIN_AGE}"
 )
+
+if [[ -n "${TITLE:-}" ]]; then
+  ARGS+=(--title "${TITLE}")
+fi
+
+if [[ "${PAPER}" == "true" || "${PAPER}" == "1" ]]; then
+  ARGS+=(--paper --xlim ${PAPER_XLIM} --ylim ${PAPER_YLIM})
+fi
+
+if [[ "${SHOW_IDS}" == "true" || "${SHOW_IDS}" == "1" ]]; then
+  ARGS+=(--show-ids)
+fi
 
 if [[ "${HIDE_NON_WALL}" == "true" || "${HIDE_NON_WALL}" == "1" ]]; then
   ARGS+=(--hide-non-wall)

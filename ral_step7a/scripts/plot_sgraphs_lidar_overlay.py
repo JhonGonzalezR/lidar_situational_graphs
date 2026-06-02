@@ -192,21 +192,26 @@ def plot_overlay(
     output: Path,
     title: str,
     segment_frame: str,
+    xlim: tuple[float, float] | None,
+    ylim: tuple[float, float] | None,
+    paper: bool,
+    show_ids: bool,
 ) -> None:
-    fig, ax = plt.subplots(figsize=(9.0, 8.0))
+    fig, ax = plt.subplots(figsize=(9.4, 7.2))
 
     scatter = ax.scatter(
         points[:, 0],
         points[:, 1],
         c=points[:, 2],
-        s=0.18,
+        s=0.22,
         cmap="viridis",
-        alpha=0.35,
+        alpha=0.38,
         linewidths=0,
         rasterized=True,
     )
-    colorbar = fig.colorbar(scatter, ax=ax, fraction=0.035, pad=0.02)
-    colorbar.set_label("z [m]")
+    if not paper:
+        colorbar = fig.colorbar(scatter, ax=ax, fraction=0.035, pad=0.02)
+        colorbar.set_label("z [m]")
 
     max_observations = max((int(segment["observations"]) for segment in segments), default=1)
     for segment in segments:
@@ -221,18 +226,26 @@ def plot_overlay(
         y0 = cy - half * dy
         x1 = cx + half * dx
         y1 = cy + half * dy
-        linewidth = 1.8 + 3.2 * min(observations / max_observations, 1.0)
+        linewidth = 2.2 + 4.0 * min(observations / max_observations, 1.0)
 
         ax.plot([x0, x1], [y0, y1], linewidth=linewidth, alpha=0.92)
-        ax.scatter([cx], [cy], s=18, color="black", alpha=0.78)
-        ax.text(cx, cy, str(segment["label"]), fontsize=8, ha="left", va="bottom")
+        if show_ids:
+            ax.scatter([cx], [cy], s=18, color="black", alpha=0.78)
+            ax.text(cx, cy, str(segment["label"]), fontsize=8, ha="left", va="bottom")
 
-    ax.set_title(title)
-    ax.set_xlabel(f"x_{segment_frame} / odom-aligned LiDAR x [m]")
-    ax.set_ylabel(f"y_{segment_frame} / odom-aligned LiDAR y [m]")
-    ax.axis("equal")
-    ax.grid(True, alpha=0.25)
-    fig.tight_layout()
+    ax.set_title(title, fontsize=15)
+    if xlim:
+        ax.set_xlim(*xlim)
+    if ylim:
+        ax.set_ylim(*ylim)
+    ax.set_aspect("equal", adjustable="box")
+    if paper:
+        ax.axis("off")
+    else:
+        ax.set_xlabel(f"x_{segment_frame} / odom-aligned LiDAR x [m]")
+        ax.set_ylabel(f"y_{segment_frame} / odom-aligned LiDAR y [m]")
+        ax.grid(True, alpha=0.25)
+    fig.tight_layout(pad=0.15)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output, dpi=180)
     plt.close(fig)
@@ -265,9 +278,13 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--title",
-        default="LiDAR cloud with S-Graphs wall-plane hypotheses in odom frame",
+        default="S-Graphs persistent wall planes",
         help="Figure title.",
     )
+    parser.add_argument("--xlim", nargs=2, type=float, metavar=("XMIN", "XMAX"))
+    parser.add_argument("--ylim", nargs=2, type=float, metavar=("YMIN", "YMAX"))
+    parser.add_argument("--paper", action="store_true", help="Hide axes, grid, and colorbar for article figures.")
+    parser.add_argument("--show-ids", action="store_true", help="Show plane IDs next to segments.")
     return parser.parse_args()
 
 
@@ -287,7 +304,17 @@ def main() -> None:
     title = args.title
     if segment_frame == "map":
         title = f"{title} (S-Graphs segments in map frame)"
-    plot_overlay(points, segments, args.output, title, segment_frame)
+    plot_overlay(
+        points,
+        segments,
+        args.output,
+        title,
+        segment_frame,
+        tuple(args.xlim) if args.xlim else None,
+        tuple(args.ylim) if args.ylim else None,
+        args.paper,
+        args.show_ids,
+    )
     print(f"LiDAR points plotted: {len(points)}")
     print(f"S-Graphs segments plotted: {len(segments)}")
     print(f"S-Graphs segment frame: {segment_frame}")

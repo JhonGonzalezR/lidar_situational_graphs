@@ -93,6 +93,14 @@ S-Graphs baseline used in the panel:
 - `../spot_dinamicaStaticV0_sgraphs_standard_optimized_old_002/sgraphs_wall_plane_summary.csv`
 - `../spot_dinamicaStaticV0_sgraphs_standard_optimized_old_002/README.md`
 
+Figure style:
+
+- Article overlays use a shared crop around the mapped structure:
+  `x=[-35, 10]`, `y=[-20, 20]` in the plotted odom-aligned frame.
+- Grid, odometry axes, axis labels, and z colorbar are hidden to increase overlay visibility.
+- Segment/track IDs are kept at the segment centroids because they are useful for tracing hypotheses back to the CSV summaries.
+- Standalone centroid-only S-Graphs figures were removed because they do not add evidence beyond the overlay.
+
 ## Current evidence
 
 S-Graphs optimized baseline:
