@@ -113,8 +113,6 @@ Diagnostic plots:
 
 ```text
 plots/sgraphs_lidar_wall_overlay_odom.png
-plots/sgraphs_wall_plane_centroids_map.png
-plots/sgraphs_wall_plane_centroids_odom.png
 plots/sgraphs_wall_plane_id_counts.png
 plots/sgraphs_wall_plane_segments_odom.png
 ```

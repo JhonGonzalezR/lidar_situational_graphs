@@ -6,8 +6,6 @@
 |---|---|---|
 | `sgraphs_wall_planes.csv` | Derived plane observation table from `/s_graphs/all_map_planes`, including map-frame and odom-frame fields | `56cf79346a0bb6726ddb96d5d484d937da26357e5ef184dcd0a87afac9d14073` |
 | `sgraphs_wall_plane_summary.csv` | Per-plane-ID persistence and stability summary | `529a89d833fa50a0c981f69a9e7e80f09535c52682e9eea44e13f4d8271a02f1` |
-| `plots/sgraphs_wall_plane_centroids_map.png` | Diagnostic map-frame centroid plot | `6addbc595d2fcdd8fdf61877ef69b27bf0db23b4defdf3bc40d659d8fb6728e3` |
-| `plots/sgraphs_wall_plane_centroids_odom.png` | Diagnostic odom-frame centroid plot | `ce8b53c258e776c387e5767dc1e47cb0baef0f09b28cd1166823905d29c95150` |
 | `plots/sgraphs_wall_plane_id_counts.png` | Diagnostic plane-id observation count plot | `0f5c5ba4147ef2a6226b74612623a71b423c1344a3b28a272b45629797c65979` |
 | `plots/sgraphs_wall_plane_segments_odom.png` | Diagnostic top-down wall-segment approximation by persistent plane ID | `3594ceacfe611526a26a2809d8d5ba18c3eeac36d9e1b603d06348520e3b0d27` |
 | `plots/sgraphs_lidar_wall_overlay_odom.png` | Visual sanity check overlaying sampled LiDAR points and S-Graphs wall hypotheses | `fabc43daed1744688fb3e8949446accf610bcb65b4aa2ed70b219056c6d4e539` |
