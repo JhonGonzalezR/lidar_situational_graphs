@@ -1,0 +1,2 @@
+dataset,matched_pairs,ingraph_selected_walls,sgraphs_selected_walls,matched_fraction_of_ingraph,matched_fraction_of_sgraphs,median_angle_difference_deg,median_plane_offset_difference_m,median_segment_gap_m,match_max_angle_deg,match_max_offset_m,match_max_segment_gap_m,interpretation
+walls_pillars_3,6,28,12,0.21428571428571427,0.5,4.21034372507069,0.40430682242650795,0.0,15.0,1.0,3.0,cross_model_agreement_not_ground_truth_accuracy

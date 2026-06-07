@@ -1,0 +1,7 @@
+dataset,model,class,output_status,total_hypotheses,selected_hypotheses,selection_rate,observation_rows,median_duration_s
+teste_percepcion_5_0,InGraph,wall_like,exposed,54,18,0.3333333333333333,1311,13.811914920806885
+teste_percepcion_5_0,InGraph,pillar_like,exposed,16,0,0.0,18,0.0
+teste_percepcion_5_0,InGraph,pipe_like,exposed,7,2,0.2857142857142857,165,25.793031930923462
+teste_percepcion_5_0,S-Graphs,wall_like,exposed,6,6,1.0,62,16.599539637565613
+teste_percepcion_5_0,S-Graphs,pillar_like,not_exposed,,,,,
+teste_percepcion_5_0,S-Graphs,pipe_like,not_exposed,,,,,

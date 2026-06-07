@@ -1,0 +1,3 @@
+dataset,model,selection_rule,total_wall_hypotheses,selected_wall_hypotheses,selection_rate,selected_observation_rows,median_observations_per_selected,median_duration_s,median_support_points,median_normal_std_deg,median_offset_std_m
+teste_percepcion_5_0,InGraph,ever_strong,54,18,0.3333333333333333,1184,65.0,13.811914920806885,206.70486111111111,0.3716086509709704,0.0291983372357135
+teste_percepcion_5_0,S-Graphs,observations>=5,6,6,1.0,62,9.5,16.599539637565613,146.0,0.004215219874019692,0.02297749406993039

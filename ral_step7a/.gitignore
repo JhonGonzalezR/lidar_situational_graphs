@@ -1,6 +1,32 @@
-# Raw/imported local result folders should be copied into runs/ before sharing.
-20260601_195923/
-
 # Local caches.
 __pycache__/
 *.pyc
+*.pyo
+
+# ROS bags and heavy recordings
+*.mcap
+*.db3
+*.bag
+*.bag2
+*.sqlite3
+
+# Generated bundles and compressed artifacts
+*.tar
+*.tar.gz
+*.zip
+
+# Raw/imported local folders outside the curated run layout.
+20260601_195923/
+
+# Step 7A heavy/generated recordings, relative to this directory.
+runs/*_input/
+runs/*_sqlite_input/
+runs/*/sgraphs_topics/
+runs/*/sgraphs_topics_metadata/
+runs/*/shareable_bundle/
+runs/*/rosbag2_*/
+runs/*/recording*/
+
+# Comparison bundles are reproducible from data/ and plots/.
+comparisons/*/shareable_bundle/
+comparisons/*/scripts/__pycache__/

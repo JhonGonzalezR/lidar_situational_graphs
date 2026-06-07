@@ -1,0 +1,5 @@
+item,dataset_or_run,ingraph_source,sgraphs_source,status,reason
+direct_comparison,walls_pillars_3,20260602_233151/structure_anchor_tracks.csv,lidar_situational_graphs/ral_step7a/runs/walls_pillars_3_sgraphs_standard_optimized_old_001/sgraphs_wall_planes.csv,comparable,same dataset timestamps and shared odom frame
+additional_ingraph_run,20260603_014722,20260603_014722/structure_anchor_tracks.csv,,not_directly_comparable,no matching ROS bag or S-Graphs run available
+additional_sgraphs_run,walls_pillars_2,,lidar_situational_graphs/ral_step7a/runs/walls_pillars_2_sgraphs_standard_optimized_old_001/sgraphs_wall_planes.csv,not_directly_comparable,no matching InGraph CSV run identified
+truncated_input,walls_pillars,,,blocked,original rosbag is truncated and has no recoverable messages

@@ -105,5 +105,6 @@
     ],
     "ros.distro": "humble",
     "cmake.configureOnOpen": false,
-    "scm.showHistoryGraph": false
+    "scm.showHistoryGraph": false,
+    "ROS2.distro": "jazzy"
 }

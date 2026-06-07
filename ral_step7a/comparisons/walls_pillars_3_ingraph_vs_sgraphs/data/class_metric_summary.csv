@@ -1,0 +1,13 @@
+dataset,model,class,output_status,selected_hypotheses,median_observations,median_duration_s,median_support_points,median_normal_std_deg,median_offset_std_m
+walls_pillars_3,InGraph,wall_like,exposed,28,69.5,22.38743007183075,240.4,0.4568576478831288,0.08001098391764318
+walls_pillars_3,InGraph,pillar_like,exposed,16,87.0,24.39129066467285,74.88152277795476,,
+walls_pillars_3,InGraph,pipe_like,exposed,1,88.0,22.80279564857483,10.170454545454545,,
+walls_pillars_3,S-Graphs,wall_like,exposed,12,40.5,89.20057260990143,388.0,2.026586859843283,0.477184783059068
+walls_pillars_3,S-Graphs,pillar_like,not_exposed,,,,,,
+walls_pillars_3,S-Graphs,pipe_like,not_exposed,,,,,,
+unpaired_ingraph_20260603_014722,InGraph,wall_like,exposed,18,65.0,13.811914920806885,206.70486111111111,0.3716086509709704,0.0291983372357135
+unpaired_ingraph_20260603_014722,InGraph,pillar_like,exposed,0,0.0,0.0,0.0,,
+unpaired_ingraph_20260603_014722,InGraph,pipe_like,exposed,2,78.5,25.793031930923462,18.476666666666667,,
+unpaired_sgraphs_walls_pillars_2,S-Graphs,wall_like,exposed,9,31.0,68.00090169906616,157.0,0.3980490790817148,0.10898405007713019
+unpaired_sgraphs_walls_pillars_2,S-Graphs,pillar_like,not_exposed,,,,,,
+unpaired_sgraphs_walls_pillars_2,S-Graphs,pipe_like,not_exposed,,,,,,

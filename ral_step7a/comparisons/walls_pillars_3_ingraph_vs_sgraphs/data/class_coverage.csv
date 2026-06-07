@@ -1,0 +1,13 @@
+dataset,model,class,output_status,total_hypotheses,selected_hypotheses,selection_rate,observation_rows,median_duration_s
+walls_pillars_3,InGraph,wall_like,exposed,133,28,0.21052631578947367,2492,22.38743007183075
+walls_pillars_3,InGraph,pillar_like,exposed,46,16,0.34782608695652173,1739,24.39129066467285
+walls_pillars_3,InGraph,pipe_like,exposed,14,1,0.07142857142857142,105,22.80279564857483
+walls_pillars_3,S-Graphs,wall_like,exposed,15,12,0.8,546,89.20057260990143
+walls_pillars_3,S-Graphs,pillar_like,not_exposed,,,,,
+walls_pillars_3,S-Graphs,pipe_like,not_exposed,,,,,
+unpaired_ingraph_20260603_014722,InGraph,wall_like,exposed,54,18,0.3333333333333333,1311,13.811914920806885
+unpaired_ingraph_20260603_014722,InGraph,pillar_like,exposed,16,0,0.0,18,0.0
+unpaired_ingraph_20260603_014722,InGraph,pipe_like,exposed,7,2,0.2857142857142857,165,25.793031930923462
+unpaired_sgraphs_walls_pillars_2,S-Graphs,wall_like,exposed,13,9,0.6923076923076923,365,68.00090169906616
+unpaired_sgraphs_walls_pillars_2,S-Graphs,pillar_like,not_exposed,,,,,
+unpaired_sgraphs_walls_pillars_2,S-Graphs,pipe_like,not_exposed,,,,,

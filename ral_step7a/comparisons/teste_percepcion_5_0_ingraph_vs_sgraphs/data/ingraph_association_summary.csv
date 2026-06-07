@@ -1,0 +1,7 @@
+dataset,model,class,decision,rows,mean_score,median_centroid_distance_m,median_normal_angle_deg,most_common_reason,most_common_reason_rows
+teste_percepcion_5_0,InGraph,pillar_like,accepted,2,0.38665941150000005,0.35522794700000004,0.0,selected_best_match,2
+teste_percepcion_5_0,InGraph,pillar_like,rejected,4,0.0,0.613101197,0.0,xy_distance,4
+teste_percepcion_5_0,InGraph,pipe_like,accepted,34,0.8156283827941176,0.1403691625,0.0,selected_best_match,32
+teste_percepcion_5_0,InGraph,pipe_like,rejected,246,1.5939758309670784,0.595344889,0.0,axis_distance,127
+teste_percepcion_5_0,InGraph,wall_like,accepted,501,0.5144659410638722,0.411306751,0.853421398,selected_best_match,495
+teste_percepcion_5_0,InGraph,wall_like,rejected,110,0.0,2.2044734134999997,8.2507380445,normal_angle,60

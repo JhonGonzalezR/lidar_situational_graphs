@@ -1,0 +1,13 @@
+dataset,model,class,decision,rows,mean_score,median_centroid_distance_m,median_normal_angle_deg,most_common_reason,most_common_reason_rows
+walls_pillars_3,InGraph,pillar_like,accepted,288,0.3877230184548612,0.181777725,0.0,selected_best_match,288
+walls_pillars_3,InGraph,pillar_like,rejected,13,0.0,0.491542089,0.0,footprint_diff,11
+walls_pillars_3,InGraph,pipe_like,accepted,12,1.0202025720833332,0.08732058749999999,0.0,selected_best_match,12
+walls_pillars_3,InGraph,pipe_like,rejected,240,1.3368510042742616,0.29474522,0.0,young_mature_policy,237
+walls_pillars_3,InGraph,wall_like,accepted,1149,0.5396724051740643,0.416983754,0.814549323,selected_best_match,1137
+walls_pillars_3,InGraph,wall_like,rejected,254,0.0,1.7364395620000002,9.888893899500001,normal_angle,193
+unpaired_ingraph_20260603_014722,InGraph,pillar_like,accepted,2,0.38665941150000005,0.35522794700000004,0.0,selected_best_match,2
+unpaired_ingraph_20260603_014722,InGraph,pillar_like,rejected,4,0.0,0.613101197,0.0,xy_distance,4
+unpaired_ingraph_20260603_014722,InGraph,pipe_like,accepted,34,0.8156283827941176,0.1403691625,0.0,selected_best_match,32
+unpaired_ingraph_20260603_014722,InGraph,pipe_like,rejected,246,1.5939758309670784,0.595344889,0.0,axis_distance,127
+unpaired_ingraph_20260603_014722,InGraph,wall_like,accepted,501,0.5144659410638722,0.411306751,0.853421398,selected_best_match,495
+unpaired_ingraph_20260603_014722,InGraph,wall_like,rejected,110,0.0,2.2044734134999997,8.2507380445,normal_angle,60

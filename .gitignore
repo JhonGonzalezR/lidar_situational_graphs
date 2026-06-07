@@ -1,6 +1,7 @@
 imgui.ini
 
 # - IDEs Folder
+.vscode/
 build/
 install/
 log/
@@ -9,3 +10,21 @@ utils/
 # - Clangd
 compile_commands.json
 .cache
+
+# - Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# - Local manuscript drafts
+ral_initial_submission.pdf
+
+# - ROS bags and large generated archives
+*.mcap
+*.db3
+*.bag
+*.bag2
+*.sqlite3
+*.tar
+*.tar.gz
+*.zip

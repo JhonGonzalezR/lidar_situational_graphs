@@ -1,8 +1,9 @@
 # Keep raw recordings and large bundles out of git.
-*.db3
 *.mcap
+*.db3
 *.bag
 *.bag2
+*.sqlite3
 *.tar
 *.tar.gz
 *.zip
@@ -10,6 +11,16 @@
 # Keep accidental cache files out.
 __pycache__/
 *.pyc
+*.pyo
 
 # Keep superseded/misnamed diagnostic figures out of git.
 archive_misnamed/
+
+# Step 7A heavy/generated recordings, relative to this directory.
+*_input/
+*_sqlite_input/
+*/sgraphs_topics/
+*/sgraphs_topics_metadata/
+*/shareable_bundle/
+*/rosbag2_*/
+*/recording*/

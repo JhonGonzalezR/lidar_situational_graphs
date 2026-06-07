@@ -1,0 +1,3 @@
+dataset,model,metric_status,processed_frames,processing_ms_median,processing_ms_p95,processing_ms_max,final_id_switch_rate,final_normal_variance_per_track,wall_observations,pillar_observations,pipe_observations,note
+teste_percepcion_5_0,InGraph,available,240,29.140532,58.6347369,84.083579,0.003803,0.092127,1311,18,165,No equivalent S-Graphs runtime metrics are present in the current artifacts.
+teste_percepcion_5_0,S-Graphs,not_available,,,,,,,62,,,No per-frame S-Graphs CPU runtime is present; recorded S-Graphs output bag duration was 59.10 s with 18 /s_graphs/all_map_planes messages.
