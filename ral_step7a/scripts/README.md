@@ -196,6 +196,112 @@ lidar_situational_graphs/ral_step7a/runs/<RUN_ID>/plots/sgraphs_lidar_wall_overl
 This figure is for qualitative validation. It should be interpreted together
 with the CSV summaries and should not be treated as a quantitative score.
 
+
+### `build_teste_percepcion_visual_bundle.sh`
+
+Rebuilds the complete visual bundle for the perception bag comparison. This is
+the current real-pipe evidence sequence, so it generates the normal wall-plane
+comparison plots plus a dedicated `PipeLike` overlay.
+
+```bash
+./lidar_situational_graphs/ral_step7a/scripts/build_teste_percepcion_visual_bundle.sh
+```
+
+Default inputs:
+
+```text
+InGraph: runs/20260603_014722/structure_anchor_tracks.csv
+S-Graphs: runs/teste_percepcion_5_0_sgraphs_standard_optimized_old_001/sgraphs_wall_planes.csv
+Bag: /home/jhon/ingraph_ws/src/multi_robot_spatial/data/datasets/rosbags/teste_percepcion_5_0-001.mcap
+```
+
+Default outputs:
+
+```text
+comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/plots/class_coverage_matched_dataset.png
+comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/plots/evidence_ingraph_ever_strong_all.png
+comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/plots/evidence_ingraph_ever_strong_walls.png
+comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/plots/evidence_ingraph_ever_strong_pipes.png
+comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/plots/evidence_sgraphs_persistent_walls_min5.png
+comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/plots/evidence_side_by_side_panel.png
+```
+
+The wrapper keeps `MIN_OBSERVATIONS=5` for S-Graphs because this sequence is
+short; with the standard threshold of 20 observations, S-Graphs selects no wall
+planes for this bag.
+
+### `plot_class_coverage.py`
+
+Creates a compact class-coverage bar plot from a comparison
+`data/class_coverage.csv` table.
+
+```bash
+python3 lidar_situational_graphs/ral_step7a/scripts/plot_class_coverage.py \
+  --csv lidar_situational_graphs/ral_step7a/comparisons/teste_percepcion_5_0_ingraph_vs_sgraphs/data/class_coverage.csv \
+  --output /tmp/class_coverage.png
+```
+
+### `annotate_physical_structures.py`
+
+Interactively annotates visible physical structures on the top-down LiDAR
+overlay. Use it when the paper needs a percentage-style precision/recall metric
+against a LiDAR-derived physical reference rather than only cross-model
+agreement.
+
+```bash
+./lidar_situational_graphs/ral_step7a/scripts/annotate_physical_structures.py \
+  --dataset walls_pillars_3 \
+  --bag /home/jhon/ingraph_ws/src/multi_robot_spatial/data/datasets/rosbags/bags_articulo/walls_pillars_3 \
+  --output lidar_situational_graphs/ral_step7a/annotations/walls_pillars_3_physical_annotations.csv \
+  --xlim -35 10 \
+  --ylim -20 20
+```
+
+Controls:
+
+```text
+w: wall, two clicks
+p: pillar, one click
+i: pipe, one click
+u: undo last annotation
+q: finish and save
+```
+
+### `evaluate_physical_annotation_alignment.py`
+
+Evaluates InGraph and, for walls only, S-Graphs against the physical annotation
+CSV. This produces per-prediction alignment results and a compact summary with
+alignment precision, instance precision, physical recall, fragmentation, and
+geometric errors.
+
+```bash
+./lidar_situational_graphs/ral_step7a/scripts/evaluate_physical_annotation_alignment.py \
+  --dataset walls_pillars_3 \
+  --annotations lidar_situational_graphs/ral_step7a/annotations/walls_pillars_3_physical_annotations.csv \
+  --ingraph-tracks lidar_situational_graphs/ral_step7a/runs/20260602_233151/structure_anchor_tracks.csv \
+  --sgraphs-planes lidar_situational_graphs/ral_step7a/runs/walls_pillars_3_sgraphs_standard_optimized_old_001/sgraphs_wall_planes.csv \
+  --sgraphs-min-observations 1 \
+  --output-predictions lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/data/physical_annotation_alignment_predictions.csv \
+  --output-summary lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/data/physical_annotation_alignment_summary.csv
+```
+
+### `plot_physical_annotation_alignment.py`
+
+Plots the annotated physical structures and marks matched predictions in green
+and unmatched predictions in red.
+
+```bash
+./lidar_situational_graphs/ral_step7a/scripts/plot_physical_annotation_alignment.py \
+  --dataset walls_pillars_3 \
+  --bag /home/jhon/ingraph_ws/src/multi_robot_spatial/data/datasets/rosbags/bags_articulo/walls_pillars_3 \
+  --annotations lidar_situational_graphs/ral_step7a/annotations/walls_pillars_3_physical_annotations.csv \
+  --alignment lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/data/physical_annotation_alignment_predictions.csv \
+  --ingraph-tracks lidar_situational_graphs/ral_step7a/runs/20260602_233151/structure_anchor_tracks.csv \
+  --sgraphs-planes lidar_situational_graphs/ral_step7a/runs/walls_pillars_3_sgraphs_standard_optimized_old_001/sgraphs_wall_planes.csv \
+  --sgraphs-min-observations 1 \
+  --output lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/plots/physical_annotation_alignment.png
+```
+
 ### `launch_rviz_docker.sh`
 
 Launches RViz2 from the S-Graphs Docker image with the Step 7A RViz config:

@@ -18,10 +18,18 @@ CLASSES="${CLASSES:-wall_like,pillar_like,pipe_like}"
 MIN_AGE="${MIN_AGE:-1}"
 HIDE_NON_WALL="${HIDE_NON_WALL:-false}"
 LIDAR_TOPIC="${LIDAR_TOPIC:-/velodyne/points}"
+MAX_MESSAGES="${MAX_MESSAGES:-80}"
+POINT_STRIDE="${POINT_STRIDE:-10}"
+MIN_Z="${MIN_Z:--2.0}"
+MAX_Z="${MAX_Z:-3.0}"
+MAX_POINTS="${MAX_POINTS:-450000}"
 PAPER="${PAPER:-true}"
 SHOW_IDS="${SHOW_IDS:-true}"
 PAPER_XLIM="${PAPER_XLIM:--35 10}"
 PAPER_YLIM="${PAPER_YLIM:--20 20}"
+OVERLAY_SUMMARY="${OVERLAY_SUMMARY:-}"
+OVERLAY_WINDOWS="${OVERLAY_WINDOWS:-}"
+MAX_POINTS_PER_WINDOW="${MAX_POINTS_PER_WINDOW:-250000}"
 MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/mplconfig}"
 
 if [[ -z "${BAG_PATH:-}" ]]; then
@@ -39,11 +47,20 @@ ARGS=(
   --topic "${LIDAR_TOPIC}"
   --output "${OUTPUT_PNG}"
   --summary "${SUMMARY_MD}"
+  --max-messages "${MAX_MESSAGES}"
+  --point-stride "${POINT_STRIDE}"
+  --min-z "${MIN_Z}"
+  --max-z "${MAX_Z}"
+  --max-points "${MAX_POINTS}"
   --mode "${MODE}"
   --snapshot "${SNAPSHOT}"
   --classes "${CLASSES}"
   --min-age "${MIN_AGE}"
 )
+
+if [[ -n "${OVERLAY_SUMMARY}" && -n "${OVERLAY_WINDOWS}" ]]; then
+  ARGS+=(--overlay-summary "${OVERLAY_SUMMARY}" --overlay-windows "${OVERLAY_WINDOWS}" --max-points-per-window "${MAX_POINTS_PER_WINDOW}")
+fi
 
 if [[ -n "${TITLE:-}" ]]; then
   ARGS+=(--title "${TITLE}")

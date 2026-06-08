@@ -1,0 +1,16 @@
+dataset,annotation_id,cx,cy,nearest_wall_distance_m,nearest_predictions,aligned_predictions,detected,proximity_bin
+walls_pillars_3,pillar_01,-13.590102,1.749209,2.623071,2,2,true,open_or_separated
+walls_pillars_3,pillar_02,-10.853495,-0.172883,4.154993,2,2,true,open_or_separated
+walls_pillars_3,pillar_03,-5.396505,-3.983367,6.410021,3,3,true,open_or_separated
+walls_pillars_3,pillar_04,1.377688,-4.971270,0.263501,2,2,true,near_or_embedded_wall
+walls_pillars_3,pillar_05,-2.150538,-9.910786,0.381828,2,2,true,near_or_embedded_wall
+walls_pillars_3,pillar_06,4.670699,-0.125840,0.046994,1,1,true,near_or_embedded_wall
+walls_pillars_3,pillar_07,-5.302419,-14.379872,0.019300,0,0,false,near_or_embedded_wall
+walls_pillars_3,pillar_08,-19.086022,5.519321,3.138161,1,1,true,open_or_separated
+walls_pillars_3,pillar_09,-10.383065,-10.804603,0.049701,1,0,false,near_or_embedded_wall
+walls_pillars_3,pillar_10,-28.823925,1.991095,0.013831,0,0,false,near_or_embedded_wall
+walls_pillars_3,pillar_11,-25.907258,6.554267,0.228803,0,0,false,near_or_embedded_wall
+walls_pillars_3,pillar_12,-23.413978,-1.490087,0.293005,0,0,false,near_or_embedded_wall
+walls_pillars_3,pillar_13,-16.316398,9.076848,1.407982,1,1,true,open_or_separated
+walls_pillars_3,pillar_14,-5.866935,7.024698,0.262450,0,0,false,near_or_embedded_wall
+walls_pillars_3,pillar_15,-0.444892,2.919859,0.499665,1,1,true,near_or_embedded_wall

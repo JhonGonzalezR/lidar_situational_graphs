@@ -26,6 +26,8 @@ from rclpy.serialization import deserialize_message
 from rosidl_runtime_py.utilities import get_message
 from sensor_msgs_py import point_cloud2
 
+from physical_annotation_common import parse_window_indices, sample_lidar_points_from_summary
+
 
 def to_float(value: str) -> float | None:
     if value == "":
@@ -119,8 +121,9 @@ def build_segments(
 
 
 def open_reader(bag_path: Path, topic: str) -> rosbag2_py.SequentialReader:
+    storage_id = "mcap" if bag_path.is_file() and bag_path.suffix == ".mcap" else "sqlite3"
     reader = rosbag2_py.SequentialReader()
-    storage_options = rosbag2_py.StorageOptions(uri=str(bag_path), storage_id="sqlite3")
+    storage_options = rosbag2_py.StorageOptions(uri=str(bag_path), storage_id=storage_id)
     converter_options = rosbag2_py.ConverterOptions(
         input_serialization_format="cdr",
         output_serialization_format="cdr",
@@ -264,6 +267,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-z", default=-2.0, type=float, help="Minimum z to plot.")
     parser.add_argument("--max-z", default=3.0, type=float, help="Maximum z to plot.")
     parser.add_argument("--max-points", default=350000, type=int, help="Maximum plotted points.")
+    parser.add_argument("--overlay-summary", type=Path, help="Optional lidar_overlay_windows_summary.csv for fused overlays.")
+    parser.add_argument("--overlay-windows", default="", help="Window indices to fuse, e.g. '1 2 3' or '1,2,3'.")
+    parser.add_argument("--max-points-per-window", default=250000, type=int)
     parser.add_argument(
         "--min-observations",
         default=20,
@@ -292,15 +298,29 @@ def main() -> None:
     args = parse_args()
     rows = read_plane_rows(args.csv)
     segments, segment_frame = build_segments(rows, args.min_observations, args.segment_frame)
-    points = sample_lidar_points(
-        bag_path=args.bag,
-        topic=args.topic,
-        max_messages=args.max_messages,
-        point_stride=max(args.point_stride, 1),
-        min_z=args.min_z,
-        max_z=args.max_z,
-        max_points=args.max_points,
-    )
+    overlay_windows = parse_window_indices(args.overlay_windows)
+    if args.overlay_summary and overlay_windows:
+        points = sample_lidar_points_from_summary(
+            args.bag,
+            args.topic,
+            args.overlay_summary,
+            overlay_windows,
+            max(args.point_stride, 1),
+            args.min_z,
+            args.max_z,
+            args.max_points_per_window,
+            args.max_points,
+        )
+    else:
+        points = sample_lidar_points(
+            bag_path=args.bag,
+            topic=args.topic,
+            max_messages=args.max_messages,
+            point_stride=max(args.point_stride, 1),
+            min_z=args.min_z,
+            max_z=args.max_z,
+            max_points=args.max_points,
+        )
     title = args.title
     if segment_frame == "map":
         title = f"{title} (S-Graphs segments in map frame)"

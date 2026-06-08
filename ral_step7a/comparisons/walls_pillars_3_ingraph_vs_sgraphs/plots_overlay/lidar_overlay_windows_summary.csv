@@ -1,0 +1,5 @@
+dataset,window_index,total_windows,topic,total_topic_messages,start_message,end_message,sampled_messages,first_time_sec,last_time_sec,points_plotted,output_png
+walls_pillars_3,1,4,/velodyne/points,702,0,49,50,1780327182.690727711,1780327192.487278223,152742,/home/jhon/comparation_ra-l/lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/plots_overlay/lidar_overlay_window_01.png
+walls_pillars_3,2,4,/velodyne/points,702,217,266,50,1780327226.087097168,1780327235.892662287,154512,/home/jhon/comparation_ra-l/lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/plots_overlay/lidar_overlay_window_02.png
+walls_pillars_3,3,4,/velodyne/points,702,435,484,50,1780327269.690253496,1780327279.509833097,151901,/home/jhon/comparation_ra-l/lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/plots_overlay/lidar_overlay_window_03.png
+walls_pillars_3,4,4,/velodyne/points,702,652,701,50,1780327313.081847906,1780327322.939695835,152949,/home/jhon/comparation_ra-l/lidar_situational_graphs/ral_step7a/comparisons/walls_pillars_3_ingraph_vs_sgraphs/plots_overlay/lidar_overlay_window_04.png

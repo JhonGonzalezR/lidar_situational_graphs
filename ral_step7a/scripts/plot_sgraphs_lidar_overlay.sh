@@ -24,6 +24,9 @@ PAPER="${PAPER:-true}"
 SHOW_IDS="${SHOW_IDS:-true}"
 PAPER_XLIM="${PAPER_XLIM:--35 10}"
 PAPER_YLIM="${PAPER_YLIM:--20 20}"
+OVERLAY_SUMMARY="${OVERLAY_SUMMARY:-}"
+OVERLAY_WINDOWS="${OVERLAY_WINDOWS:-}"
+MAX_POINTS_PER_WINDOW="${MAX_POINTS_PER_WINDOW:-250000}"
 MPLCONFIGDIR="${MPLCONFIGDIR:-/tmp/mplconfig}"
 
 mkdir -p "${MPLCONFIGDIR}"
@@ -49,6 +52,10 @@ ARGS=(
   --segment-frame "${SEGMENT_FRAME}" \
   --title "${TITLE}"
 )
+
+if [[ -n "${OVERLAY_SUMMARY}" && -n "${OVERLAY_WINDOWS}" ]]; then
+  ARGS+=(--overlay-summary "${OVERLAY_SUMMARY}" --overlay-windows "${OVERLAY_WINDOWS}" --max-points-per-window "${MAX_POINTS_PER_WINDOW}")
+fi
 
 if [[ "${PAPER}" == "true" || "${PAPER}" == "1" ]]; then
   ARGS+=(--paper --xlim ${PAPER_XLIM} --ylim ${PAPER_YLIM})

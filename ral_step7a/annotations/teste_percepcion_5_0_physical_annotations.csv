@@ -1,0 +1,14 @@
+dataset,structure_id,structure_class,x0,y0,x1,y1,cx,cy,radius_m,notes
+teste_percepcion_5_0,wall_01,wall,-5.225806,4.540860,-7.204301,-7.459140,,,,
+teste_percepcion_5_0,wall_02,wall,-5.182796,4.454839,-3.720430,4.325806,,,,
+teste_percepcion_5_0,wall_03,wall,-3.677419,4.368817,-3.290323,6.562366,,,,
+teste_percepcion_5_0,wall_04,wall,-3.204301,6.562366,17.000000,3.589526,,,,
+teste_percepcion_5_0,wall_05,wall,-7.376344,-9.609677,-7.978495,-13.910753,,,,
+teste_percepcion_5_0,wall_06,wall,-5.096774,-4.964516,-3.505376,-5.093548,,,,
+teste_percepcion_5_0,wall_07,wall,-13.053763,-8.577419,-7.333333,-9.566667,,,,
+teste_percepcion_5_0,pipe_01,pipe,,,,,-0.537634,-1.179570,,
+teste_percepcion_5_0,pipe_02,pipe,,,,,-0.150538,1.401075,,
+teste_percepcion_5_0,boundary_01,wall_like_boundary,-3.773501,3.671355,-5.105848,-4.914878,,,,lidar_observable_boundary
+teste_percepcion_5_0,boundary_06,wall_like_boundary,-1.967432,5.003701,5.286454,4.056255,,,,lidar_observable_boundary
+teste_percepcion_5_0,boundary_08,wall_like_boundary,-3.566247,-3.878608,-0.516654,-5.033309,,,,lidar_observable_boundary
+teste_percepcion_5_0,boundary_12,wall_like_boundary,-1.079201,2.131754,-2.707624,3.730570,,,,lidar_observable_boundary

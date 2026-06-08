@@ -44,8 +44,22 @@ data/operational_metrics.csv
 data/wall_agreement_summary.csv
 data/wall_cross_model_matches.csv
 data/wall_model_summary.csv
+plots/class_coverage_matched_dataset.png
+plots/evidence_ingraph_ever_strong_all.png
+plots/evidence_ingraph_ever_strong_walls.png
+plots/evidence_ingraph_ever_strong_pipes.png
+plots/evidence_sgraphs_persistent_walls_min5.png
+plots/evidence_side_by_side_panel.png
+plots/summary_evidence_ingraph_ever_strong_all.md
+plots/summary_evidence_ingraph_ever_strong_walls.md
+plots/summary_evidence_ingraph_ever_strong_pipes.md
 plots/wall_cross_model_agreement.png
 plots/wall_persistence_stability.png
 CHECKSUMS.sha256
 ```
 
+Las figuras `evidence_*` usan la MCAP original
+`teste_percepcion_5_0-001.mcap` como nube LiDAR de fondo. En S-Graphs se
+mantiene el umbral adaptado `observations>=5`; en InGraph se muestran anchors
+`ever-Strong`. La figura `evidence_ingraph_ever_strong_pipes.png` se conserva
+por separado porque esta secuencia es la evidencia actual de tuberías reales.

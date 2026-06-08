@@ -51,3 +51,17 @@ precisión, recall ni exactitud contra verdad-terreno.
 
 PillarLike y PipeLike son clases no expuestas por S-Graphs; sus valores deben
 mostrarse como `N/A`, no como cero detecciones.
+
+## Nota sobre visualización S-Graphs
+
+La figura `plots/evidence_sgraphs_persistent_walls.png` conserva el criterio
+original de persistencia usado en la comparación tabular:
+`observations>=20`. Bajo ese criterio se dibujan 12 de los 15 planos S-Graphs
+publicados en `walls_pillars_3`.
+
+La figura `plots/evidence_sgraphs_all_walls.png` muestra todos los planos
+publicados por S-Graphs en la misma secuencia (`observations>=1`). Esta vista
+es útil para inspeccionar qué hipótesis entran al sistema de S-Graphs antes de
+aplicar nuestro filtro de persistencia para la comparación, pero no debe
+mezclarse con las métricas de paredes persistentes salvo que se reconstruyan
+las tablas con la misma regla.

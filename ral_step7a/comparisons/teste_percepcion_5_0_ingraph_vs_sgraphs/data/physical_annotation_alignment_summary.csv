@@ -1,0 +1,4 @@
+evaluation_scope,dataset,model,structure_class,total_predictions,total_annotations,aligned_predictions,matched_annotations,alignment_precision,instance_precision,physical_recall,fragmentation_index_mean,fragmentation_index_max,median_angle_error_deg,median_offset_error_m,median_segment_gap_m,median_overlap_ratio,median_xy_error_m
+walllike_boundary,teste_percepcion_5_0,InGraph,wall,18,11,17,8,0.944444,0.444444,0.727273,2.125000,5,0.769732,0.057853,0.000000,0.997832,
+walllike_boundary,teste_percepcion_5_0,InGraph,pipe,2,2,2,2,1.000000,1.000000,1.000000,1.000000,1,,,,,0.060916
+walllike_boundary,teste_percepcion_5_0,S-Graphs,wall,6,11,4,2,0.666667,0.333333,0.181818,2.000000,2,1.496253,0.300308,0.000000,0.999640,

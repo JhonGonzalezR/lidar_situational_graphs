@@ -21,6 +21,8 @@ from rclpy.serialization import deserialize_message
 from rosidl_runtime_py.utilities import get_message
 from sensor_msgs_py import point_cloud2
 
+from physical_annotation_common import parse_window_indices, sample_lidar_points_from_summary
+
 
 def to_float(value: str, default: float | None = None) -> float | None:
     if value == "":
@@ -155,9 +157,10 @@ def build_point_anchors(
 
 
 def open_reader(bag_path: Path, topic: str) -> rosbag2_py.SequentialReader:
+    storage_id = "mcap" if bag_path.is_file() and bag_path.suffix == ".mcap" else "sqlite3"
     reader = rosbag2_py.SequentialReader()
     reader.open(
-        rosbag2_py.StorageOptions(uri=str(bag_path), storage_id="sqlite3"),
+        rosbag2_py.StorageOptions(uri=str(bag_path), storage_id=storage_id),
         rosbag2_py.ConverterOptions("cdr", "cdr"),
     )
     reader.set_filter(rosbag2_py.StorageFilter(topics=[topic]))
@@ -292,15 +295,19 @@ def write_summary(
     snapshot: str,
     classes: set[str],
 ) -> None:
-    class_counts = Counter(cls for cls, _ in tracks)
+    class_counts = Counter(cls for cls, _ in tracks if cls in classes)
     state_counts: dict[str, Counter[str]] = defaultdict(Counter)
     strong_counts = Counter()
     for (cls, _), row in tracks.items():
+        if cls not in classes:
+            continue
         state_counts[cls][row.get("lifecycle_state", "")] += 1
         if to_bool(row.get("is_strong", "")):
             strong_counts[cls] += 1
     ever_strong_counts = Counter()
     for (cls, _), rows in groups.items():
+        if cls not in classes:
+            continue
         if any(to_bool(row.get("is_strong", "")) for row in rows):
             ever_strong_counts[cls] += 1
     with output.open("w") as f:
@@ -344,6 +351,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-z", default=-2.0, type=float)
     parser.add_argument("--max-z", default=3.0, type=float)
     parser.add_argument("--max-points", default=450000, type=int)
+    parser.add_argument("--overlay-summary", type=Path, help="Optional lidar_overlay_windows_summary.csv for fused overlays.")
+    parser.add_argument("--overlay-windows", default="", help="Window indices to fuse, e.g. '1 2 3' or '1,2,3'.")
+    parser.add_argument("--max-points-per-window", default=250000, type=int)
     parser.add_argument("--title", default="")
     parser.add_argument("--xlim", nargs=2, type=float, metavar=("XMIN", "XMAX"))
     parser.add_argument("--ylim", nargs=2, type=float, metavar=("YMIN", "YMAX"))
@@ -367,7 +377,21 @@ def main() -> None:
     pipes = build_point_anchors(tracks, "pipe_like", args.mode, args.min_age, classes)
     points = None
     if args.bag:
-        points = sample_lidar_points(args.bag, args.topic, args.max_messages, max(args.point_stride, 1), args.min_z, args.max_z, args.max_points)
+        overlay_windows = parse_window_indices(args.overlay_windows)
+        if args.overlay_summary and overlay_windows:
+            points = sample_lidar_points_from_summary(
+                args.bag,
+                args.topic,
+                args.overlay_summary,
+                overlay_windows,
+                max(args.point_stride, 1),
+                args.min_z,
+                args.max_z,
+                args.max_points_per_window,
+                args.max_points,
+            )
+        else:
+            points = sample_lidar_points(args.bag, args.topic, args.max_messages, max(args.point_stride, 1), args.min_z, args.max_z, args.max_points)
     title = args.title
     if not title:
         class_label = " + ".join(

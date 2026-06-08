@@ -1,0 +1,5 @@
+evaluation_scope,dataset,model,structure_class,total_predictions,total_annotations,aligned_predictions,matched_annotations,alignment_precision,instance_precision,physical_recall,fragmentation_index_mean,fragmentation_index_max,median_angle_error_deg,median_offset_error_m,median_segment_gap_m,median_overlap_ratio,median_xy_error_m
+walllike_boundary,walls_pillars_3,InGraph,wall,28,14,24,10,0.857143,0.357143,0.714286,2.400000,8,0.456540,0.073871,0.000000,0.999722,
+walllike_boundary,walls_pillars_3,InGraph,pillar,16,15,15,9,0.937500,0.562500,0.600000,1.666667,3,,,,,0.194463
+walllike_boundary,walls_pillars_3,InGraph,pipe,1,0,0,0,0.000000,0.000000,0.000000,,,,,,,
+walllike_boundary,walls_pillars_3,S-Graphs,wall,15,14,6,4,0.400000,0.266667,0.285714,1.500000,2,3.817848,0.182281,0.000000,0.997130,
